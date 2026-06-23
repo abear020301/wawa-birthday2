@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>娃娃生日快樂</title>
+
+  <style>
+    :root {
+      --bg1: #fff7fb;
+      --bg2: #f4edff;
+      --text: #4a2f3b;
+      --accent: #ff7aa8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC",
+        "Microsoft JhengHei", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, #ffe1ec 0, transparent 28%),
+        radial-gradient(circle at 85% 20%, #e8dcff 0, transparent 24%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    .card {
+      width: min(92vw, 520px);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 20px 60px rgba(100, 58, 90, 0.18);
+      border-radius: 28px;
+      padding: 22px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      animation: floatIn 800ms ease both;
+    }
+
+    h1 {
+      margin: 8px 0 14px;
+      font-size: clamp(28px, 7vw, 42px);
+      letter-spacing: 0.04em;
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      line-height: 1.7;
+      font-size: 16px;
+      color: #6b4b5a;
+    }
+
+    .ticket {
+      margin: 0 auto 18px;
+      padding: 14px 16px;
+      border: 2px dashed #ff9abc;
+      border-radius: 18px;
+      background: #fff8fb;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .photo {
+      width: 100%;
+      border-radius: 22px;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
+      display: block;
+    }
+
+    .love {
+      margin-top: 18px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #8c7180;
+    }
+
+    .heart {
+      position: fixed;
+      top: -30px;
+      font-size: 22px;
+      animation: fall linear forwards;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(calc(100vh + 40px)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="card" id="content" aria-live="polite" style="display: none;">
+    <h1>娃娃生日快樂 🎂</h1>
+
+    <div class="ticket">
+      此機票可和熊熊兌換一張真的機票<br />
+      請截圖保存，不接受遺失補發 ✈️🧸
+    </div>
+
+    <p class="subtitle">這是一張生日限定票券。</p>
+
+    <img class="photo" src="./photo.jpg" alt="生日照片" />
+
+    <div class="love">愛娃娃 ♡</div>
+    <div class="hint">快截圖！！！</div>
+  </main>
+
+  <script>
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function makeHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = ["♡", "♥", "💗", "🎂", "✈️", "🧸"][Math.floor(Math.random() * 6)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      heart.style.fontSize = (18 + Math.random() * 12) + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6500);
+    }
+
+    async function start() {
+      await sleep(300);
+      alert("娃娃生日快樂");
+
+      await sleep(300);
+      alert("可以此機票和熊熊換一張真的機票（快截圖！！！）");
+
+      await sleep(300);
+      alert("愛娃娃");
+
+      document.getElementById("content").style.display = "block";
+
+      setInterval(makeHeart, 300);
+    }
+
+    window.addEventListener("load", start);
+  </script>
+</body>
+</html>
